@@ -24,7 +24,6 @@ const props = defineProps<{
 
 const addToCart = (ev: Product) => {
   productsStore.addCartItem(ev)
-  console.log(ev)
 }
 </script>
 
