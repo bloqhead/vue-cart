@@ -1,9 +1,9 @@
 <template>
   <div class="card">
-    <h3>{{ props.name }}</h3>
-    <p>{{ props.description }}</p>
-    <p>${{ props.price }}</p>
-    <button @click="emit('add', props.id)">
+    <h3>{{ name }}</h3>
+    <p>{{ description }}</p>
+    <p>${{ price }}</p>
+    <button @click="emit('add', id)">
       Add to cart
     </button>
   </div>
