@@ -5,6 +5,10 @@ import type { Purchase } from '../types'
 export const useCartStore = defineStore('cart', () => {
   const cartItems = reactive<Purchase[]>([])
 
+  const findIndex = (product: Purchase) => {
+    return cartItems.findIndex((i) => i.id === product.id)
+  }
+
   const cartTotal = computed(() => {
     const formatter = new Intl.NumberFormat('en-US', {
       style: 'currency',
@@ -18,7 +22,7 @@ export const useCartStore = defineStore('cart', () => {
 
   const addCartItem = (product: Purchase) => {
     const index = computed(() => {
-      return cartItems.findIndex((i) => i.id === product.id)
+      return findIndex(product)
     })
 
     if (index.value !== -1) {
@@ -27,14 +31,13 @@ export const useCartStore = defineStore('cart', () => {
       cartItems.push({
         ...product,
         quantity: 1,
-        price: product.price,
       })
     }
   }
 
   const removeCartItem = (product: Purchase) => {
     const index = computed(() => {
-      return cartItems.findIndex((i) => i.id === product.id)
+      return findIndex(product)
     })
 
     if (index.value >= 0) {
@@ -42,5 +45,23 @@ export const useCartStore = defineStore('cart', () => {
     }
   }
 
-  return { cartItems, cartTotal, addCartItem, removeCartItem }
+  const getQuantity = (product: Purchase) => {
+    const index = computed(() => {
+      return findIndex(product)
+    })
+
+    if (index.value >= 0) {
+      return cartItems[index.value].quantity
+    }
+
+    return 0
+  }
+
+  return {
+    cartItems,
+    cartTotal,
+    addCartItem,
+    removeCartItem,
+    getQuantity,
+  }
 })

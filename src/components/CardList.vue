@@ -6,6 +6,7 @@
       :name="product.name"
       :description="product.description"
       :price="product.price"
+      :quantity="getQuantity(product)"
       @add="addToCart(product)"
     />
   </div>
@@ -16,14 +17,18 @@ import type { Product } from '../types'
 import { useCartStore } from '../store/cart'
 import Card from './Card.vue'
 
-const productsStore = useCartStore()
+const cartStore = useCartStore()
 
 const props = defineProps<{
   products: Product[]
 }>()
 
 const addToCart = (ev: Product) => {
-  productsStore.addCartItem(ev)
+  cartStore.addCartItem(ev)
+}
+
+const getQuantity = (product: Product) => {
+  return cartStore.getQuantity(product)
 }
 </script>
 

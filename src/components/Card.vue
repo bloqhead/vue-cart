@@ -1,6 +1,6 @@
 <template>
   <div class="card">
-    <h3>{{ name }}</h3>
+    <h3>{{ name }} <span v-if="quantity">({{ quantity }})</span></h3>
     <p>{{ description }}</p>
     <p>${{ price }}</p>
     <button @click="emit('add', id)">
@@ -11,9 +11,9 @@
 
 <script setup lang="ts">
 import type { Product } from '../types'
-import { defineProps, defineEmits } from 'vue'
 
-const props = defineProps<Product>()
+const props = defineProps<Product & { quantity?: number }>()
+
 const emit = defineEmits<{
   add: [id: number],
 }>()
