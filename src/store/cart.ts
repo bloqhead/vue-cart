@@ -15,7 +15,9 @@ export const useCartStore = defineStore('cart', () => {
       currency: 'USD',
     })
     
-    const total = cartItems.reduce((acc, i) => acc + (i.price * i.quantity), 0)
+    const total = cartItems.reduce((acc: number, item: Purchase) => {
+      return acc + item.price * item.quantity
+    }, 0)
 
     return formatter.format(total)
   })

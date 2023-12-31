@@ -14,9 +14,18 @@ import type { Product } from '../types'
 
 const props = defineProps<Product & { quantity?: number }>()
 
+const {
+  name,
+  description,
+  price,
+  quantity,
+  id,
+} = props
+
 const emit = defineEmits<{
   add: [id: number],
 }>()
+
 </script>
 
 <style scoped>

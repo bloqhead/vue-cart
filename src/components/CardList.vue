@@ -3,6 +3,7 @@
     <card
       v-for="(product, key) in props.products"
       :key="key"
+      :id="product.id"
       :name="product.name"
       :description="product.description"
       :price="product.price"
@@ -13,7 +14,7 @@
 </template>
 
 <script setup lang="ts">
-import type { Product } from '../types'
+import type { Product, Purchase } from '../types'
 import { useCartStore } from '../store/cart'
 import Card from './Card.vue'
 
@@ -24,11 +25,11 @@ const props = defineProps<{
 }>()
 
 const addToCart = (ev: Product) => {
-  cartStore.addCartItem(ev)
+  cartStore.addCartItem(ev as Purchase)
 }
 
 const getQuantity = (product: Product) => {
-  return cartStore.getQuantity(product)
+  return cartStore.getQuantity(product as Purchase)
 }
 </script>
 
